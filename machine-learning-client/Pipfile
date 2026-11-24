@@ -10,12 +10,15 @@ pymongo = "*"
 opencv-python-headless = "*"
 mediapipe = "*"
 numpy = "*"
+flask = "*"
+pillow = "*"
 
 [dev-packages]
 pytest = "*"
 coverage = "*"
 black = "*"
 pylint = "*"
+pytest-cov = "*"
 
 [requires]
 python_version = "3.12"
