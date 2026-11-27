@@ -3,7 +3,7 @@
 import os
 import uuid
 from datetime import datetime, timezone
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from pymongo import MongoClient
 import requests
 
@@ -34,10 +34,12 @@ def get_animal(blink_count):
 @app.route("/")
 def index():
     """Render the home page."""
-    return render_template("index.html")
+    
+    return redirect(url_for("start_game"))
+    #return render_template("index.html")
 
 
-@app.route("/api/game/start", methods=["POST"])
+@app.route("/api/game/start", methods=["GET"])
 def start_game():
     """Create a new game record in MongoDB and return its game_id."""
     game_id = str(uuid.uuid4())
@@ -49,7 +51,8 @@ def start_game():
             "created_at": datetime.now(timezone.utc),
         }
     )
-    return jsonify({"game_id": game_id}), 201
+    return render_template("game.html", game_id = game_id)
+    #return jsonify({"game_id": game_id}), 201
 
 
 @app.route("/api/game/<game_id>/frame", methods=["POST"])

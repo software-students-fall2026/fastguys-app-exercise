@@ -1,7 +1,11 @@
 {% extends 'base.html' %} 
 
 {% block container %}
+<form id="game_id">
+    <input type="hidden" id="gameId" value="{{ game_id }}">
+</form>
 
-<h1>test</h1>
+<video id="video" autoplay playsinline></video>
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
 
 {% endblock %}
