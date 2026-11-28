@@ -65,7 +65,7 @@ body {
 .title-header {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     font-size: 40px;
-    color:rgb(144, 166, 194);
+    color:rgb(65, 155, 188);
     text-align: center;
     margin: 10px;
 }
@@ -130,4 +130,17 @@ button {
     font-size: 90px;
     margin-left: 60px;
     visibility: hidden;
+}
+
+th {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 45px;
+    color:rgb(65, 155, 188);
+    padding: 10px;
+}
+
+td {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 35px;
+    color:rgb(117, 132, 151);
 }

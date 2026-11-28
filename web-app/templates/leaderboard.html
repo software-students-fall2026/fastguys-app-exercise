@@ -5,11 +5,21 @@
 <div class="window">
 	<div class = "home-frame">
 		<div class = "home-screen">  
-            <ul>
-                {% for gameId in game_ids %}
-                    <li>{{ gameId }}</li>
+            <table>
+                <tr>
+                    <th>Game ID</th>
+                    <th>Animal</th>
+                    <th>Blinks</th>
+                </tr>
+
+                {% for game in game_ids %}
+                    <tr>
+                        <td>{{ game.game_id }}</td>
+                        <td>{{ game.animal }}</td>
+                        <td>{{ game.blink_count }}</td>
+                    </tr>
                 {% endfor %}
-            </ul>
+            </table>
 
             <form action="/" method="GET">
                 <button type="submit">Home</button>
