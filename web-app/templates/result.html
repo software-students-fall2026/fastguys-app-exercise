@@ -2,6 +2,22 @@
 
 {% block container %}
 
-<h1>test</h1>
+<div class="window">
+	<div class = "home-frame">
+		<div class = "home-screen">  
+            <h2>You are a {{animal}}!</h2>
+            <h2>Your blink count was {{blink_count}}.</h2>
+
+            <form action="/api/game/start" method="GET">
+                <button type="submit">Play Again</button>
+            </form>
+
+            <form action="/api/leaderboard" method="GET">
+                <button type="submit">Leaderboard</button>
+            </form>
+            
+        </div>
+	</div>
+</div>
 
 {% endblock %}
