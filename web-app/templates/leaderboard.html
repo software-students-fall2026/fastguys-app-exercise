@@ -21,6 +21,16 @@
                 {% endfor %}
             </table>
 
+            {% if not game_ids %}
+                <p>Play the first round to set a score.</p>
+            {% endif %}
+            <h2>Animal stats</h2>
+            <ul>
+                {% for animal, count in animal_counts.items() %}
+                    <li>{{ animal }}: {{ count }}</li>
+                {% endfor %}
+            </ul>
+            
             <form action="/" method="GET">
                 <button type="submit">Home</button>
             </form>

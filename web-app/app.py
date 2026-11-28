@@ -105,8 +105,20 @@ def leaderboard():
         .sort("blink_count", -1)
         .limit(10)
     )
-    return render_template("leaderboard.html", game_ids = scores)
-    #return jsonify(scores), 200
+    animal_counts = dict.fromkeys(
+        ("Sloth", "Tortoise", "Cat", "Rabbit", "Cheetah"), 0
+    )
+    pipeline = [
+        {"$match": {"status": "completed"}},
+        {"$group": {"_id": "$animal", "count": {"$sum": 1}}},
+    ]
+    for row in db.games.aggregate(pipeline):
+        if row["_id"] in animal_counts:
+            animal_counts[row["_id"]] = row["count"]
+
+    return render_template(
+        "leaderboard.html", game_ids=scores, animal_counts=animal_counts
+    )
 
 
 if __name__ == "__main__":
