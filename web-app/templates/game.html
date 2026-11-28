@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+
+{% block container %}
+<form id="game_id">
+    <input type="hidden" id="gameId" value="{{ game_id }}">
+</form>
+            
+<div class="window">
+    <div class="header">
+        <h1 class="time">0:10</h1> <h1 class="score">0</h1>
+    </div>
+	<div class = "frame">
+		<div class = "screen">  
+            <h1 class="left-countdown">3</h1>
+
+            <video id="video" autoplay playsinline></video>
+            
+            <h1 class="right-countdown">3</h1>
+        </div>
+	</div>
+</div>
+
+<script src="{{ url_for('static', filename='js/camera.js') }}"></script>
+
+{% endblock %}

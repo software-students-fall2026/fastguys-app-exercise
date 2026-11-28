@@ -3,7 +3,7 @@
 import os
 import uuid
 from datetime import datetime, timezone
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from pymongo import MongoClient
 import requests
 
@@ -37,7 +37,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/api/game/start", methods=["POST"])
+@app.route("/api/game/start", methods=["GET"])
 def start_game():
     """Create a new game record in MongoDB and return its game_id."""
     game_id = str(uuid.uuid4())
@@ -49,8 +49,8 @@ def start_game():
             "created_at": datetime.now(timezone.utc),
         }
     )
-    return jsonify({"game_id": game_id}), 201
-
+    return render_template("game.html", game_id = game_id)
+    #return jsonify({"game_id": game_id}), 201
 
 @app.route("/api/game/<game_id>/frame", methods=["POST"])
 def send_frame(game_id):
@@ -76,7 +76,7 @@ def send_frame(game_id):
     return jsonify({"game_id": game_id, "blink_count": blink_count}), 200
 
 
-@app.route("/api/game/<game_id>/finish", methods=["POST"])
+@app.route("/api/game/<game_id>/finish", methods=["GET"])
 def finish_game(game_id):
     """Finish the game, calculate the animal, and update MongoDB."""
     game = db.games.find_one({"game_id": game_id})
@@ -90,10 +90,11 @@ def finish_game(game_id):
         {"game_id": game_id},
         {"$set": {"status": "completed", "animal": animal}},
     )
-    return (
-        jsonify({"game_id": game_id, "blink_count": blink_count, "animal": animal}),
-        200,
-    )
+    return render_template("result.html", animal = animal, blink_count = blink_count)
+    #return (
+    #    jsonify({"game_id": game_id, "blink_count": blink_count, "animal": animal}),
+    #    200,
+    #)
 
 
 @app.route("/api/leaderboard", methods=["GET"])
@@ -104,7 +105,8 @@ def leaderboard():
         .sort("blink_count", -1)
         .limit(10)
     )
-    return jsonify(scores), 200
+    return render_template("leaderboard.html", game_ids = scores)
+    #return jsonify(scores), 200
 
 
 if __name__ == "__main__":

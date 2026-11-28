@@ -1,0 +1,25 @@
+{% extends 'base.html' %} 
+
+{% block container %}
+
+<div class="window">
+	<div class = "home-frame">
+		<div class = "home-screen">  
+            <h1 class = "title-header">BLINKING GAME</h1> 
+            <h2> 
+                The BLINKING GAME is a test to see how many times you can blink within 10 seconds. 
+                The camera checks whether your eyes are open or closed, counts your blinks, and tells you what animal you are based on your results.
+            </h2>
+
+            <form action="/api/game/start" method="GET">
+                <button type="submit">Start</button>
+            </form>
+            
+            <form action="/api/leaderboard" method="GET">
+                <button type="submit">Leaderboard</button>
+            </form>
+        </div>
+	</div>
+</div>
+
+{% endblock %}
