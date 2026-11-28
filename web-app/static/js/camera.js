@@ -16,11 +16,12 @@ async function startCam()
 
     const vidCanvas = document.createElement("canvas");
     const ctx = vidCanvas.getContext("2d");
-    vidCanvas.width = video.videoWidth;
-    vidCanvas.height = video.videoHeight;
 
     video.srcObject = stream;
     await video.play();
+
+    vidCanvas.width = video.videoWidth;
+    vidCanvas.height = video.videoHeight;
 
     leftcountdownDisplay.style.visibility = "visible";
     rightcountdownDisplay.style.visibility = "visible";

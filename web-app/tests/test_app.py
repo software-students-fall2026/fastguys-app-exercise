@@ -76,3 +76,23 @@ def test_bad_requests(client):
     """Test missing image and unknown game ID error responses."""
     assert client.post("/api/game/123/frame", json={}).status_code == 400
     assert client.post("/api/game/123/finish").status_code == 404
+
+def test_leaderboard_counts_all_completed_games(client):
+    games = app_module.db.games
+    games.insert_many([
+        {"game_id": f"round-{i}", "status": "completed",
+         "animal": "Cat", "blink_count": 20}
+        for i in range(10)
+    ])
+    games.insert_one({
+        "game_id": "last-place", "status": "completed",
+        "animal": "Sloth", "blink_count": 2,
+    })
+    games.insert_one({"game_id": "unfinished", "status": "in_progress"})
+
+    page = client.get("/api/leaderboard").get_data(as_text=True)
+
+    assert "Cat: 10" in page
+    assert "Sloth: 1" in page
+    assert "Cheetah: 0" in page
+    assert "last-place" not in page
